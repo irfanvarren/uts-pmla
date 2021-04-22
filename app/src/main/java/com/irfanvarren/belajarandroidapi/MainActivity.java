@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**generate data list method()
      */
-    private void generateDataList(List<User> photoList){
+    private void generateDataList(List<User> userList){
         recyclerView = findViewById(R.id.customRecyclerView);
-        adapter = new CustomAdapter(this, photoList);
+        adapter = new CustomAdapter(this, userList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

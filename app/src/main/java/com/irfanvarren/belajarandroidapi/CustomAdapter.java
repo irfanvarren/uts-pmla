@@ -1,17 +1,18 @@
 package com.irfanvarren.belajarandroidapi;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.irfanvarren.belajarandroidapi.model.User;
-import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,14 +25,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         this.dataList = dataList;
     }
     class CustomViewHolder extends RecyclerView.ViewHolder{
-        public final View mView;
+        public View mView;
 
-        private TextView usernameView;
+        private TextView nameView;
+        private Button profileView;
+        private User currentUser;
 
         CustomViewHolder(View itemView){
             super(itemView);
             mView = itemView;
-            usernameView = mView.findViewById(R.id.username);
+            mView.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v) {
+                    Toast.makeText(v.getContext(),currentUser.getEmail(), Toast.LENGTH_SHORT);
+                }
+            });
+            nameView = mView.findViewById(R.id.name);
+            profileView = mView.findViewById(R.id.profile);
         }
     }
 
@@ -44,7 +53,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(CustomAdapter.CustomViewHolder holder, int position) {
-        holder.usernameView.setText(dataList.get(position).getUsername());
+        String name = dataList.get(position).getName();
+        String initial = String.valueOf(name.charAt(0));
+        holder.nameView.setText(name);
+        holder.profileView.setText(initial);
+        holder.currentUser = dataList.get(position);
     }
 
     @Override

@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="10dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/material_on_surface_stroke">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/username"/>
-</LinearLayout>
+        android:orientation="horizontal"
+        android:padding="15dp"
+        >
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/profile_bg"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:focusableInTouchMode="false"
+            android:text="I"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="Test"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="15dp"
+                android:id="@+id/name"/>
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:padding="0dp"
+            android:textColor="@color/black"
+            app:icon="@drawable/baseline_chevron_right_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            android:id="@+id/detailBtn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
