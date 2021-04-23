@@ -1,6 +1,7 @@
 package com.irfanvarren.belajarandroidapi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         private MaterialCardView cardView;
         private TextView nameView;
         private Button profileView;
+        private Button detailBtn;
         private User currentUser;
 
         CustomViewHolder(View itemView){
@@ -37,8 +39,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             cardView = mView.findViewById(R.id.card);
             nameView = mView.findViewById(R.id.name);
             profileView = mView.findViewById(R.id.profile);
+            detailBtn = mView.findViewById(R.id.detailBtn);
             if(dataList == null){
-                Toast.makeText(context, "Data api kosong / null", Toast.LENGTH_SHORT);
+                Log.d("pesan error", "Data api kosong / null");
+
             }
         }
     }
@@ -56,6 +60,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         if(dataList != null) {
             User currentUser = dataList.get(position);
             String name = currentUser.getName();
+            String username = currentUser.getUsername();
+            String email = currentUser.getEmail();
             String initial = String.valueOf(name.charAt(0));
             holder.nameView.setText(name);
             holder.profileView.setText(initial);
@@ -63,7 +69,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 @Override
                 public void onClick(View v) {
                     Log.d("test", "onClick: test");
-                    Toast.makeText(context, currentUser.getEmail(), Toast.LENGTH_SHORT);
+                    Intent myIntent = new Intent(context,detailActivity.class);
+                    myIntent.putExtra("name",name);
+                    myIntent.putExtra("username",username);
+                    myIntent.putExtra("email",email);
+                    context.startActivity(myIntent);
+                }
+            });
+            holder.detailBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("test", "onClick: test");
+                    Intent myIntent = new Intent(context,detailActivity.class);
+                    myIntent.putExtra("name",name);
+                    myIntent.putExtra("username",username);
+                    myIntent.putExtra("email",email);
+                    context.startActivity(myIntent);
                 }
             });
         }

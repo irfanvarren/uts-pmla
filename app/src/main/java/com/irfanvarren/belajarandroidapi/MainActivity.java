@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.irfanvarren.belajarandroidapi.service.ApiClient;
 import com.irfanvarren.belajarandroidapi.service.GetService;
 import com.irfanvarren.belajarandroidapi.model.User;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     private CustomAdapter adapter;
     private RecyclerView recyclerView;
+    private List<User> dataList;
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+    dataList = new ArrayList<User>();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -39,7 +42,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 progressDialog.dismiss();
-                generateDataList(response.body());
+                if(response.body() != null) {
+                    generateDataList(response.body());
+                }else{
+                    User contohUser = new User(1,"irfan-varren","Irfan Varren","irfanvarren7@gmail.com");
+                    dataList.add(contohUser);
+                    generateDataList(dataList);
+                }
             }
 
             @Override
