@@ -37,11 +37,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             cardView = mView.findViewById(R.id.card);
             nameView = mView.findViewById(R.id.name);
             profileView = mView.findViewById(R.id.profile);
+            if(dataList == null){
+                Toast.makeText(context, "Data api kosong / null", Toast.LENGTH_SHORT);
+            }
         }
     }
 
     @Override
     public CustomAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.custom_row, parent, false);
         return new CustomViewHolder(view);
@@ -50,7 +54,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @Override
     public void onBindViewHolder(CustomAdapter.CustomViewHolder holder, int position) {
         if(dataList != null) {
-            String name = dataList.get(position).getName();
+            User currentUser = dataList.get(position);
+            String name = currentUser.getName();
             String initial = String.valueOf(name.charAt(0));
             holder.nameView.setText(name);
             holder.profileView.setText(initial);
@@ -58,7 +63,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 @Override
                 public void onClick(View v) {
                     Log.d("test", "onClick: test");
-                    Toast.makeText(v.getContext(), "test", Toast.LENGTH_SHORT);
+                    Toast.makeText(context, currentUser.getEmail(), Toast.LENGTH_SHORT);
                 }
             });
         }
