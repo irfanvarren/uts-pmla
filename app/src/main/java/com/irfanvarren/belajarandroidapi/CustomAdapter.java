@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.irfanvarren.belajarandroidapi.model.User;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         this.dataList = dataList;
     }
     class CustomViewHolder extends RecyclerView.ViewHolder{
-        public View mView;
-
+        public final View mView;
+        private MaterialCardView cardView;
         private TextView nameView;
         private Button profileView;
         private User currentUser;
@@ -34,11 +34,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         CustomViewHolder(View itemView){
             super(itemView);
             mView = itemView;
-            mView.setOnClickListener(new View.OnClickListener(){
-                @Override public void onClick(View v) {
-                    Toast.makeText(v.getContext(),currentUser.getEmail(), Toast.LENGTH_SHORT);
-                }
-            });
+            cardView = mView.findViewById(R.id.card);
             nameView = mView.findViewById(R.id.name);
             profileView = mView.findViewById(R.id.profile);
         }
@@ -53,15 +49,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(CustomAdapter.CustomViewHolder holder, int position) {
-        String name = dataList.get(position).getName();
-        String initial = String.valueOf(name.charAt(0));
-        holder.nameView.setText(name);
-        holder.profileView.setText(initial);
-        holder.currentUser = dataList.get(position);
+        if(dataList != null) {
+            String name = dataList.get(position).getName();
+            String initial = String.valueOf(name.charAt(0));
+            holder.nameView.setText(name);
+            holder.profileView.setText(initial);
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("test", "onClick: test");
+                    Toast.makeText(v.getContext(), "test", Toast.LENGTH_SHORT);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        if(dataList != null) {
+            return dataList.size();
+        }
+        return 0;
     }
 }
